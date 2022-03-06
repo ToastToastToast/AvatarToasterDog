@@ -23,16 +23,19 @@ let asteroid1;
 //centering sketch in html
 var canvas;
 
+//mic fixing with button
+//let sketchStarted = false;
+
 function setup() {
 
 canvas = createCanvas(500, 500);
-//canvas.position(700,300);
 
+//button for mic fix
+//createButton("Start").mousePressed(startSketch);
 
 angleMode(degrees);
 frameRate(60);
 
-//microphone setup
 mic = new p5.AudioIn();
 mic.start();
 
@@ -48,8 +51,18 @@ asteroid2 = new Asteroid();
 
 }
 
+/*
+function startSketch(){
+  //microphone setup
+  mic = new p5.AudioIn();
+  mic.start();
+
+  sketchStarted = true;
+}*/
 
 function draw() {
+
+//if(sketchStarted){
   angleMode(DEGREES);
   background(0);
   noStroke();
@@ -77,6 +90,9 @@ function draw() {
 
   //dev tool
   //coordinates();
+//}
+
+
 }
 
 
