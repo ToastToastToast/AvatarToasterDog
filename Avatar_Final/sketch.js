@@ -13,30 +13,51 @@ let toastHeight = 0;
 
 //toast burn marks
 let currentTime;
-let toastColorR = 255; 
+let toastColorR = 255;
 let toastColorG = 204;
 let toastColorB = 138;
 
 //asteroids
 let asteroid1;
 
+//centering sketch in html
+/*
+var cnv;
+
+function centerCanvas(){
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x,y+150);
+}
+
+function windowResized(){
+  centerCanvas();
+}
+*/
+
 function setup() {
 
-  createCanvas(500, 500);
-   angleMode(degrees);
-  frameRate(60);
+//cnv =
+//centerCanvas();
+createCanvas(500, 500);
 
-  //microphone setup
+angleMode(degrees);
+frameRate(60);
+
+//microphone setup
 mic = new p5.AudioIn();
 mic.start();
 
+//creates stars in background
 starField();
-  
+
+//sets the reset timer to current time for lever
 prevTime = millis();
-  
+
+//background asteroids
 asteroid1 = new Asteroid();
 asteroid2 = new Asteroid();
-   
+
 }
 
 
@@ -44,33 +65,33 @@ function draw() {
   angleMode(DEGREES);
   background(0);
   noStroke();
-  
+
   //calling stars
   for(let i = 0; i < stars.length;i++){
     stars[i].move();
     stars[i].show();
   }
-  
+
   //call asteroids
   asteroid1.move();
   asteroid1.showCustom();
   asteroid2.move();
   asteroid2.showTriangle();
-  
+
   ToasterDog();
-  
+
 
   //microphone setup
   micLevel = mic.getLevel();
-  
+
   //Test mic is working
   //print('mic level is' + micLevel);
-  
+
   //dev tool
   //coordinates();
 }
 
-  
+
 function ToasterDog()  {
   //current functions...
   //Toaster, DogHead, Tail
@@ -79,25 +100,25 @@ function ToasterDog()  {
   DogHead();
   }
 
-  
+
   function Toaster(){
     //current functions...Bread, Feet, BodyToaster
     //BREAD: rgb crust, rgb bread, burn marks, xy coords; start colors:255 204,138
     //FEET: rgb
     //BODYTOASTER: rgb body, rgb rim
-    
-    Bread(148, 118, 78, toastColorR - 5, toastColorG + 20, toastColorB + 60, toastColorR, toastColorG, toastColorB, 0, 0); 
-    Feet(224, 158, 0); //rgb 
-    BodyToaster(113, 245, 245, 200, 200, 200); 
+
+    Bread(148, 118, 78, toastColorR - 5, toastColorG + 20, toastColorB + 60, toastColorR, toastColorG, toastColorB, 0, 0);
+    Feet(224, 158, 0); //rgb
+    BodyToaster(113, 245, 245, 200, 200, 200);
     toasterSwitch();
     }
-  
+
   function DogHead(){
     //current functions... Head, Ears, Eyes, Nose, Mouth
     //INPUTS: r, g, b colors unless otherwise stated - 3 parameters
     //EYES: rgb color outer circle, rgb highlight circle - 6 parameters
-    //MOUTH: rgb color, stroke, strokeWeight - 5 parameters 
-     
+    //MOUTH: rgb color, stroke, strokeWeight - 5 parameters
+
      let headCheck = false;
      if(mouseX > 320 && mouseX < 460){
       if(mouseY > 150 && mouseY < 230){
@@ -108,21 +129,21 @@ function ToasterDog()  {
         }
      }
       else{
-        headCheck = false;  
+        headCheck = false;
     }
-    
-     Head(224,158,0); 
-     Ears(156, 110, 0); 
-     Eyes(0,0,0, 255,255,255,headCheck);    
-     Nose(0, 0 ,0); 
-     Mouth(0,0,0,0,4);  
-     
+
+     Head(224,158,0);
+     Ears(156, 110, 0);
+     Eyes(0,0,0, 255,255,255,headCheck);
+     Nose(0, 0 ,0);
+     Mouth(0,0,0,0,4);
+
   }
-  
+
   function Tail(){
    //current functions...tipTail, baseTail
-   //rgb parameters 
-     
+   //rgb parameters
+
      let tailHeadPat = false;
      if(mouseX > 320 && mouseX < 460){
       if(mouseY > 150 && mouseY < 230){
@@ -133,25 +154,25 @@ function ToasterDog()  {
         }
      }
       else{
-        tailHeadPat = false;  
+        tailHeadPat = false;
     }
-    
-    tipTail(255, 255, 255,tailHeadPat); 
+
+    tipTail(255, 255, 255,tailHeadPat);
     baseTail(224, 158, 0,tailHeadPat);
   }
-  
-  
+
+
   //Section for the TOASTER
-    
+
     function Bread(r, g, b, rr, gg, bb, rrr, ggg, bbb, x,y){
       push();
     //Crust
-      fill(r, g, b); 
+      fill(r, g, b);
       rect(width*0.2,height*0.33 + toastHeight,width*0.57,height*0.3,2);
    //Lumps on top of bread;  243 middle coords
-      
+
       translate(x,y);
-      
+
       beginShape();
       curveVertex(width * 0.2,height * 0.5 + toastHeight);
       curveVertex(width * 0.2,height * 0.332 + toastHeight);
@@ -159,7 +180,7 @@ function ToasterDog()  {
       curveVertex(width * 0.512,height * 0.33 + toastHeight);
       curveVertex(width * 0.512,height * 0.5 + toastHeight);
       endShape();
-      
+
       beginShape();
       curveVertex(width * 0.46,height * 0.5 + toastHeight);
       curveVertex(width * 0.46,height * 0.344 + toastHeight);
@@ -167,11 +188,11 @@ function ToasterDog()  {
       curveVertex(width * 0.772,height * 0.337 + toastHeight);
       curveVertex(width * 0.776,height * 0.5 + toastHeight);
       endShape();
-    
+
       //Bread
       fill(rr, gg, bb); //bread color
       rect(width*0.22,height*0.35 + toastHeight,width*0.53,height*0.25,5);
-      
+
       beginShape();
       curveVertex(width * 0.22,height * 0.46 + toastHeight);
       curveVertex(width * 0.22,height * 0.356 + toastHeight);
@@ -179,7 +200,7 @@ function ToasterDog()  {
       curveVertex(width * 0.52,height * 0.356 + toastHeight);
       curveVertex(width * 0.52,height * 0.5 + toastHeight);
       endShape();
-      
+
        beginShape();
       curveVertex(width * 0.47,height * 0.5 + toastHeight);
       curveVertex(width * 0.47,height * 0.356 + toastHeight);
@@ -187,17 +208,17 @@ function ToasterDog()  {
       curveVertex(width * 0.75,height * 0.356 + toastHeight);
       curveVertex(width * 0.75,height * 0.5 + toastHeight);
       endShape();
-      
+
       //cook marks, realized I didn't like them
       //fill(rrr, ggg, bbb,160);
       //rect(width * 0.25, height * 0.36 + toastHeight, width * 0.15, height * 0.22, width * 0.02);
       //rect(width * 0.415, height * 0.36 + toastHeight, width * 0.15, height * 0.22, width * 0.02);
       //rect(width * 0.58, height * 0.36 + toastHeight, width * 0.15, height * 0.22, width * 0.02);
-      
+
       //moving toast downward and changing color
-   
+
       if(toasterOn == true){
-       
+
         toastHeight = 30;
         if(frameCount % 160 == 0){
           //starting at rgb 255 204 138
@@ -209,17 +230,17 @@ function ToasterDog()  {
       else{
         toastHeight = -30;
       }
-      
+
        pop();
     }
-   
+
     function Feet(r, g, b){
       //Feet
       fill(r,g,b);
       rect(width*0.24,height*0.8,width*0.1,height*0.1,0,0,5,5);
       rect(width*0.58,height*0.8,width*0.1,height*0.1,0,0,5,5);
     }
-  
+
     function BodyToaster(r, g, b, rr, gg, bb){
        //Body Toaster
       fill(r, g, b); //first 3 para
@@ -228,7 +249,7 @@ function ToasterDog()  {
       rect(width*0.12,height*0.76,width*0.7,height*0.04);
     }
 
-     
+
   function toasterSwitch(){
       //lever hole
       push();
@@ -249,7 +270,7 @@ function ToasterDog()  {
           }
         }
       }
-    
+
     //timer
       if(toasterOn == true){
          cookingPos = 20;
@@ -259,10 +280,10 @@ function ToasterDog()  {
           print('Toast is done!');
           interval = random(7000,16000);
           prevTime = millis();
-          
+
         }
       }
-      
+
     //drawing the toaster switch
       push();
         stroke(50, 151, 168);
@@ -271,15 +292,15 @@ function ToasterDog()  {
         arc(width * 0.45, (height * 0.7) + cookingPos,width * 0.32, height * 0.1,180,360,CHORD);
       pop();
     }
-     
-  
+
+
   //Section for the HEAD
-    
-  
+
+
     function Head(r, g, b){
        //Head
       //fill(224, 158, 0); orange
-      fill(r, g, b);    
+      fill(r, g, b);
       rect(width*0.58,height*0.32,width*0.34,height*0.3);
       fill(240,240,240);
       rect(width*0.71,height*0.32,width*0.08,height*0.3);
@@ -287,12 +308,12 @@ function ToasterDog()  {
     }
 
   //EARS
-  
+
     function Ears(r, g, b){
        //Left Ear
       //fill(156, 110, 0); dark brown
       fill(r, g, b);
-  
+
   //microphone for Left Ear
    push();
       micLevel = mic.getLevel();
@@ -301,29 +322,29 @@ function ToasterDog()  {
       let xSmallLeft = width*0.51;
       let ySmallLeft = height*0.28;
       let angle = 0;
-      angle = angle + getLevelEase(micLevel); 
-  
+      angle = angle + getLevelEase(micLevel);
+
     push();
       //print('height of ear is'+micLevel);
       translate(xLargeLeft + 30, yLargeLeft);
       rotate(angle);
       rect(width * -0.06,0,width*0.14,height*0.26); //large part
     pop();
-      
+
     rect(xSmallLeft,ySmallLeft,width*0.16,height*0.12); //smaller part
   pop();
 
-      
+
   //Right Ear
   rect(width*0.88,height*0.28,width*0.1,height*0.3);
   rect(width*0.83,height*0.27,width*0.12,height*0.08);
-  
+
     }
   function Eyes(r, g, b, rr,gg,bb, HeadCheck){
-       
+
 //Eyes
   fill(r, g, b);
-  //function to change the state of the eyes 
+  //function to change the state of the eyes
     if(HeadCheck == true){
   //if(mouseX > 320 && mouseX < 460){
     //if(mouseY > 150 && mouseY < 230){
@@ -353,40 +374,40 @@ function ToasterDog()  {
    // ellipse(width*0.67,height*0.43,width*0.02,height*0.02);
     //}
   }
-  
-//Nose 
+
+//Nose
     function Nose(r, g, b){
       fill(r, g, b);
-      
+
 quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*0.74,height*0.55);
     }
 
 //Mouth
     function Mouth(r, g, b, s, sw){
-    //mouth rgb, stroke, weight 
+    //mouth rgb, stroke, weight
       fill(r,g,b);
       stroke(s);
       noFill();
       strokeWeight(sw);
     curve(width*0.65,height*0.45,width*0.7,height*0.58,width*0.75,height*0.55,width*0.75,height*0.4);
   curve(width*0.85,height*0.45,width*0.8,height*0.58,width*0.75,height*0.55,width*0.75,height*0.4);
-  
+
     }
-   
-  
- //Section for the TAIL 
- 
-  
+
+
+ //Section for the TAIL
+
+
   function tipTail(r, g, b,tailHeadPat){
     strokeWeight(0);
-    fill(r, g, b); 
+    fill(r, g, b);
     let x1 = 0;
     let x2 = 0;
     let x3 = 0;
     let y1 = 0;
     let y2 = 0;
     let y3 = 0;
-    
+
     push();
       if(tailHeadPat == true){
         x1 = width * 0.02;
@@ -396,7 +417,7 @@ quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*
         y2 = height * 0.5;
         y3 = height * 0.58;
       }
-      
+
     else{
         x1 = width * 0.02;
         x2 = width * 0.14;
@@ -408,7 +429,7 @@ quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*
       triangle(x1, y1, x2, y2, x3, y3);
     pop();
   }
-  
+
   function baseTail(r, g, b,tailHeadPat){
     fill(r, g, b);
     let x1 = 0;
@@ -419,7 +440,7 @@ quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*
     let y2 = 0;
     let y3 = 0;
     let y4 = 0;
-    
+
     push();
       if(tailHeadPat == true){
         x1 = width * 0.08; //top left
@@ -431,7 +452,7 @@ quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*
         y3 = height * 0.58;
         y4 = height * 0.58;
       }
-      
+
     else{
         x1 = width * 0.08;
         x2 = width * 0.14;
@@ -447,14 +468,14 @@ quad(width*0.72,height*0.52,width*0.78,height*0.52,width*0.76,height*0.55,width*
   }
 
 //Stars
-  
+
 function starField(){
-    
+
     for(let i = 0; i<numStars; i++){
       stars[i] = new Star();
     }
-    
-    
+
+
   }
 
  //Returns 1 of 18 values of microphone volume to remove decimals.
@@ -524,9 +545,9 @@ function starField(){
      return 170;
    }
 // }
-   
-  
-  
+
+
+
 }
 
 
@@ -538,5 +559,3 @@ function coordinates(){
   noStroke();
   text("("+mouseX+","+mouseY+")", mouseX, mouseY);
 }
-
-
