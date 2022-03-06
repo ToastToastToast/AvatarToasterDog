@@ -21,25 +21,14 @@ let toastColorB = 138;
 let asteroid1;
 
 //centering sketch in html
-/*
-var cnv;
 
-function centerCanvas(){
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  cnv.position(x,y+150);
-}
-
-function windowResized(){
-  centerCanvas();
-}
-*/
+var canvas;
 
 function setup() {
 
-//cnv =
-//centerCanvas();
-createCanvas(500, 500);
+canvas = createCanvas(500, 500);
+//canvas.position(700,300);
+
 
 angleMode(degrees);
 frameRate(60);
