@@ -21,7 +21,6 @@ let toastColorB = 138;
 let asteroid1;
 
 //centering sketch in html
-
 var canvas;
 
 function setup() {
